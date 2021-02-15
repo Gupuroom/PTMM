@@ -102,7 +102,6 @@ public class WriteActivity extends AppCompatActivity {
             icon1 = true;
         } else {
             binding.icon1.setColorFilter(Color.GRAY);
-
             binding.linearStyle.setVisibility(View.INVISIBLE);
             binding.linearWord.setVisibility(View.INVISIBLE);
 
