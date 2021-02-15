@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff">
@@ -19,6 +20,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/bottomMenu"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,8 +38,8 @@
                     android:id="@+id/image_back"
                     android:layout_width="25sp"
                     android:layout_height="25sp"
-                    android:clickable="true"
                     android:layout_marginStart="10dp"
+                    android:clickable="true"
                     android:foregroundGravity="left"
                     android:src="@drawable/back_black" />
 
@@ -60,25 +62,152 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
+                android:paddingLeft="25dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:paddingLeft="25dp"
                 android:text="오늘 2021.02.10"
                 android:textSize="15dp" />
 
             <EditText
+                android:id="@+id/editText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="#ffffff"
-                android:lineSpacingExtra="4sp"
-                android:maxLines="200"
-                android:lines="5"
                 android:gravity="top"
+                android:maxLines="200"
                 android:paddingLeft="25dp"
                 android:textSize="15dp" />
         </LinearLayout>
 
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"
+            android:background="#E2E2E2"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/view1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <LinearLayout
+
+                android:id="@+id/linearWord"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="invisible"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/textSet"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:onClick="@{activity::onClickTextSet}"
+                    android:text="set"
+                    android:textAlignment="center" />
+
+
+                <TextView
+                    android:id="@+id/textKG"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:onClick="@{activity::onClickTextKG}"
+                    android:text="kg"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textLB"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:onClick="@{activity::onClickTextLB}"
+                    android:text="LB"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textCount"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:onClick="@{activity::onClickTextCount}"
+                    android:text="개"
+                    android:textAlignment="center" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="invisible"
+                android:weightSum="4">
+
+                <ImageView
+                    android:id="@+id/iconBold"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:onClick="@{activity::onClickBold}"
+                    android:src="@drawable/outline_format_bold_black_48" />
+
+                <ImageView
+                    android:id="@+id/iconItalic"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:onClick="@{activity::onClickItalic}"
+                    android:src="@drawable/outline_format_italic_black_48" />
+
+                <ImageView
+                    android:id="@+id/iconStrike"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:onClick="@{activity::onClickStrike}"
+                    android:src="@drawable/outline_format_strikethrough_black_48" />
+
+                <ImageView
+                    android:id="@+id/iconUnderline"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:onClick="@{activity::onClickUnderline}"
+                    android:src="@drawable/outline_format_underlined_black_48" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"
+            android:background="#E2E2E2"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
         <LinearLayout
+            android:id="@+id/bottomMenu"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#ffffff"
@@ -94,28 +223,31 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/outline_dehaze_black_48" />
+                android:onClick="@{activity::onClickIcon1}"
+                android:src="@drawable/outline_title_black_48" />
 
             <ImageView
                 android:id="@+id/icon2"
+                android:onClick="@{activity::onClickIcon2}"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/outline_search_black_48" />
+                android:src="@drawable/outline_format_list_bulleted_black_48" />
 
             <ImageView
                 android:id="@+id/icon3"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/outline_check_circle_black_48" />
+                android:src="@drawable/outline_format_color_text_black_48" />
 
             <ImageView
                 android:id="@+id/icon4"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/outline_mode_black_48" />
+                android:onClick="@{activity::onClickIcon4}"
+                android:src="@drawable/outline_rtt_black_48" />
 
         </LinearLayout>
 
