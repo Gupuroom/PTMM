@@ -7,15 +7,10 @@ import android.os.Bundle;
 
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -23,7 +18,6 @@ import com.project.ptmm.databinding.ActivityWriteBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Objects;
 
 public class WriteActivity extends AppCompatActivity {
 
@@ -33,6 +27,10 @@ public class WriteActivity extends AppCompatActivity {
 
     final int bTime = 100;
     boolean icon1 = false, icon2 = false, icon3 = false, icon4 = false;
+    boolean bold = false;
+
+    int i = 1;
+    int ho = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +38,9 @@ public class WriteActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_write);
         binding.setActivity(this);
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        settings();
 
-        setPage();
-
-        binding.editText.requestFocus();
-        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
-        // edit_txt에 액션리스너를 달아준다.
+        /* icon2번 액션
         binding.editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -64,10 +56,26 @@ public class WriteActivity extends AppCompatActivity {
                 }
                 return true;
             }
-        });
+
+        });*/
+    }
+
+    private void settings() {
+        // 기본 페이지 세팅
+        setPage();
+        // 애니매이션
+        overridePendingTransition(R.anim.vertical_enter, R.anim.none);
+        // 메뉴 클릭시 진동
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     private void setPage() {
+
+        // 화면 시작하자마자 edittext 포커스 및 키보드 올리기
+        binding.editText.requestFocus();
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
         String today = format.format(calendar.getTime());
@@ -82,7 +90,7 @@ public class WriteActivity extends AppCompatActivity {
     }
 
     public void onClickIcon1(View view) {
-        vibrator.vibrate(VibrationEffect.createOneShot(100,20));// 0.5초간 진동
+        vibrator.vibrate(VibrationEffect.createOneShot(50, 15));// 0.5초간 진동
 
         if (!icon1) { // Icon1 클릭시
             binding.icon1.setColorFilter(Color.parseColor("#ee9ca7"));
@@ -112,7 +120,7 @@ public class WriteActivity extends AppCompatActivity {
     }
 
     public void onClickIcon2(View view) {
-        vibrator.vibrate(VibrationEffect.createOneShot(100,20));// 0.5초간 진동
+        vibrator.vibrate(VibrationEffect.createOneShot(50, 15));// 0.5초간 진동
         if (!icon2) { // Icon1 클릭시
             binding.icon1.setColorFilter(Color.GRAY);
             icon1 = false;
@@ -130,7 +138,7 @@ public class WriteActivity extends AppCompatActivity {
     }
 
     public void onClickIcon4(View view) {
-        vibrator.vibrate(VibrationEffect.createOneShot(100,20));// 0.5초간 진동
+        vibrator.vibrate(VibrationEffect.createOneShot(50, 15));// 0.5초간 진동
         if (!icon4) { // Icon4 클릭시
             binding.icon1.setColorFilter(Color.GRAY);
             icon1 = false;
@@ -159,6 +167,15 @@ public class WriteActivity extends AppCompatActivity {
     }
 
     public void onClickBold(View view) {
+        if (bold) {
+            binding.iconBold.setColorFilter(Color.GRAY);
+            bold = false;
+            Toast.makeText(WriteActivity.this, "false", Toast.LENGTH_SHORT).show();
+        } else {
+            binding.iconBold.setColorFilter(Color.parseColor("#ee9ca7"));
+            Toast.makeText(WriteActivity.this, "true", Toast.LENGTH_SHORT).show();
+            bold = true;
+        }
     }
 
     public void onClickItalic(View view) {
@@ -196,7 +213,15 @@ public class WriteActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        inputMethodManager.hideSoftInputFromWindow(binding.editText.getWindowToken(), 0);
         super.onPause();
+        View focusView = getCurrentFocus();
+        inputMethodManager.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // back 버튼으로 화면 종료가 야기되면 동작한다.
+        overridePendingTransition(R.anim.none, R.anim.vertical_exit);
     }
 }
